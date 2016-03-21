@@ -1,0 +1,17 @@
+{
+  "name": "es6-function-reflector",
+  "version": "1.0.0",
+  "description": "Function Reflection in Javascript With Support for ES5 and ES6 Syntax",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Arrizal Amin",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "expect": "^1.15.2",
+    "mocha": "^2.4.5"
+  }
+}
