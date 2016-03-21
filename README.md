@@ -1,6 +1,8 @@
 # js-function-reflector
 Function Reflection in Javascript With Support for ES5 and ES6 Syntax
 
+[![Build Status](https://travis-ci.org/arrizalamin/js-function-reflector.svg?branch=master)](https://travis-ci.org/arrizalamin/js-function-reflector)
+
 ## Installation
 `npm install js-function-reflector`
 
