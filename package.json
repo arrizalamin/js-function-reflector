@@ -1,13 +1,24 @@
 {
   "name": "js-function-reflector",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Function Reflection in Javascript With Support for ES5 and ES6 Syntax",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arrizalamin/js-function-reflector"
+  },
+  "keywords": [
+    "function",
+    "reflection"
+  ],
   "author": "Arrizal Amin",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arrizalamin/js-function-reflector/issues"
+  },
   "dependencies": {
   },
   "devDependencies": {
