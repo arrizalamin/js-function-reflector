@@ -41,4 +41,8 @@ const g = (foo) => {
 }
 console.log(functionReflector(g));
 // { name: 'anonymous', args: ['foo'], body: 'return foo' }
+
+const h = foo => 'bar'
+console.log(functionReflector(h));
+// { name: 'anonymous', args: ['foo'], body: "return 'bar'" }
 ```
