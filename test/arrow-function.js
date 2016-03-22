@@ -15,7 +15,6 @@ describe('Arrow Function', () => {
 
   it('should return body with no bracket', () => {
     const actual = functionReflector(() => 'ok').body
-    console.log(actual)
     const expected = "return 'ok'"
 
     expect(actual).toEqual(expected)
