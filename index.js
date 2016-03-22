@@ -3,9 +3,12 @@ var whitespaceRegex = /[\s\n\t]+/mg;
 
 module.exports=function(fn)
 {
-  var matches,src = fn.toString();
+  var body = src = fn.toString();
+  var arrowIndex = src.lastIndexOf('=>')
+  var arrowFunction = arrowIndex > -1
+  var inlineFunction = false
 
-  matches = functionHeadRegex.exec(src);
+  var matches = functionHeadRegex.exec(src);
   if (matches.length < 3) {
     throw new Error('Invalid function');
   }
@@ -27,9 +30,18 @@ module.exports=function(fn)
     return argument;
   });
 
+  if (arrowFunction) {
+    body = src.substr(arrowIndex + 2).trim()
+    if (body[0] != '{') {
+      inlineFunction = true
+    }
+  }
+
+  body = (inlineFunction) ? 'return ' + body : body.slice(body.indexOf('{') + 1, -1).trim()
+
   return {
     name: matches[1] || 'anonymous',
     args: args,
-    body: src.slice(src.indexOf('{')+1,src.lastIndexOf('}')).trim()
+    body: body
   };
 };

@@ -13,6 +13,14 @@ describe('Arrow Function', () => {
     expect(actual).toBeAn(expected)
   })
 
+  it('should return body with no bracket', () => {
+    const actual = functionReflector(() => 'ok').body
+    console.log(actual)
+    const expected = "return 'ok'"
+
+    expect(actual).toEqual(expected)
+  })
+
   it("should return empty array if function doesn't have argument", () => {
     const actual = functionReflector(() => {}).args
     const expected = []

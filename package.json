@@ -1,6 +1,6 @@
 {
   "name": "js-function-reflector",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Function Reflection in Javascript With Support for ES5 and ES6 Syntax",
   "main": "index.js",
   "scripts": {
