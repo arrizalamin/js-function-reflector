@@ -22,7 +22,7 @@ describe('Arrow Function', () => {
 
   it('should return body with no bracket', () => {
     const actual = babelReflector(() => 'ok').body
-    const expected = "return 'ok'"
+    const expected = "return 'ok';"
 
     expect(actual).toEqual(expected)
   })
@@ -50,7 +50,7 @@ describe('Arrow Function', () => {
 
   it('should return function body in string', () => {
     const actual = babelReflector(func).body
-    const expected = 'return a'
+    const expected = 'return a;'
 
     expect(actual).toEqual(expected)
   })
