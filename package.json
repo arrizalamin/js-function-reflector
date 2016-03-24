@@ -4,7 +4,8 @@
   "description": "Function Reflection in Javascript With Support for ES5 and ES6 Syntax",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test:babel": "BABEL=true mocha --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,10 @@
   "bugs": {
     "url": "https://github.com/arrizalamin/js-function-reflector/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "babel-preset-es2015": "^6.6.0",
+    "babel-register": "^6.7.2",
     "expect": "^1.15.2",
     "mocha": "^2.4.5"
   }
