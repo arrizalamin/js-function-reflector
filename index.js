@@ -1,9 +1,11 @@
+var babelReflector = require('./babel-reflector');
+
 var functionHeadRegex = /^(?:function\s*)?(?:(\w+)\s*)?(?:\(?)\s*([^\)]*)(?:\)?)/;
 var oneArgumentFunctionRegex = /^\w+/;
 var whitespaceRegex = /[\s\n\t]+/mg;
 
-module.exports=function(fn)
-{
+function reflector(fn) {
+  var src;
   var body = src = fn.toString();
   var arrowIndex = src.lastIndexOf('=>');
   var arrowFunction = arrowIndex > -1;
@@ -60,3 +62,7 @@ module.exports=function(fn)
     body: body
   };
 };
+
+reflector.babelReflector = babelReflector;
+
+module.exports = reflector;

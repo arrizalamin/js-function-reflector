@@ -4,8 +4,8 @@
   "description": "Function Reflection in Javascript With Support for ES5 and ES6 Syntax",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "test:babel": "BABEL=true mocha --compilers js:babel-register"
+    "test": "mocha test/*.js",
+    "test:babel": "mocha --compilers js:babel-register test/babel/*.js"
   },
   "repository": {
     "type": "git",
