@@ -1,8 +1,8 @@
 var babelReflector = require('./babel-reflector');
+var getNameAndArguments = require('./get-name-and-arguments');
 
 var functionHeadRegex = /^(?:function\s*)?(?:(\w+)\s*)?(?:\(?)\s*([^\)]*)(?:\)?)/;
 var oneArgumentFunctionRegex = /^\w+/;
-var whitespaceRegex = /[\s\n\t]+/mg;
 
 function reflector(fn) {
   var src;
@@ -30,28 +30,9 @@ function reflector(fn) {
     var args = [matches[0]];
     var name = 'anonymous';
   } else {
-    var matches = functionHeadRegex.exec(src);
-    if (matches.length < 3) {
-      throw new Error('Invalid function');
-    }
-    var args = matches[2] && matches[2].replace(whitespaceRegex, '').split(',') || [];
-    var name = matches[1] || 'anonymous';
-
-    args = args.map(function(argument) {
-      var check = argument.split('=');
-      if (check.length > 1) {
-        try {
-          check[1] = eval(check[1]);
-        } catch(e) {
-          check[1] = 'var(' + check[1] + ')';
-        }
-        return check;
-      }
-      if (argument.substr(0, 3) === '...') {
-        return [argument.substr(3), 'spread operator']
-      }
-      return argument;
-    });
+    var nameAndArgs = getNameAndArguments(src, functionHeadRegex);
+    var name = nameAndArgs.name;
+    var args = nameAndArgs.args;
   }
 
   body = (inlineFunction) ? 'return ' + body : body.slice(body.indexOf('{') + 1, -1).trim()
