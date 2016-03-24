@@ -3,7 +3,7 @@ const {babelReflector} = require('../../index')
 
 describe('Spread Operator', () => {
   const func = (a, b = true, ...c) => {
-    return a
+    return c
   }
 
   it('should return javascript object', () => {

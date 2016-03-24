@@ -2,6 +2,7 @@ var functionHeadRegex = /^function\s*(?:(\w+)\s*)?\(\s*([^\)]*)\)/m;
 var whitespaceRegex = /[\s\n\t]+/mg;
 var defaultParamsRegex = /var (\w+) = arguments.length <= (\d+) \|\| arguments\[(?:\2)\] === undefined \? (.+) : arguments\[(?:\2)\]/gm;
 var paramRegex = /var (\w+) = arguments\[(\d+)\]/gm;
+var spreadRegex = /(\w+)\[_key - (\d+)\] = arguments\[_key\];/gm;
 
 module.exports = function(fn) {
   var src;
@@ -46,6 +47,9 @@ module.exports = function(fn) {
     var name = param[1];
     var index = param[2];
     args.splice(index, 0, name);
+  }
+  while ( (param = spreadRegex.exec(src)) !== null ) {
+    args.splice(param[2], 0, [param[1], 'spread operator']);
   }
 
   body = body.slice(body.indexOf('{') + 1, -1).trim()
