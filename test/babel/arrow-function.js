@@ -1,5 +1,6 @@
 const expect = require('expect')
-const {babelReflector} = require('../../index')
+const reflector = require('../../index')
+const babelReflector = reflector.compiler('babel-preset-es2015')
 
 describe('Arrow Function', () => {
   const func = (a, b) => {

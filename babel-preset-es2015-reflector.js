@@ -6,8 +6,7 @@ var paramRegex = /var (\w+) = arguments\[(\d+)\]/gm;
 var spreadRegex = /(\w+)\[_key - (\d+)\] = arguments\[_key\];/gm;
 
 module.exports = function(fn) {
-  var src;
-  var body = src = fn.toString();
+  var src = fn.toString();
 
   var nameAndArgs = getNameAndArguments(src, functionHeadRegex);
 
@@ -34,7 +33,7 @@ module.exports = function(fn) {
     args.splice(param[2], 0, [param[1], 'spread operator']);
   }
 
-  body = body.slice(body.indexOf('{') + 1, -1).trim()
+  var body = src.slice(src.indexOf('{') + 1, -1).trim()
 
   return {
     name: nameAndArgs.name,

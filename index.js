@@ -1,5 +1,6 @@
-var babelReflector = require('./babel-reflector');
+var babelReflector = require('./babel-preset-es2015-reflector');
 var getNameAndArguments = require('./get-name-and-arguments');
+var compilers = require('./compilers');
 
 var functionHeadRegex = /^(?:function\s*)?(?:(\w+)\s*)?(?:\(?)\s*([^\)]*)(?:\)?)/;
 var oneArgumentFunctionRegex = /^\w+/;
@@ -44,6 +45,6 @@ function reflector(fn) {
   };
 };
 
-reflector.babelReflector = babelReflector;
+reflector.compiler = compilers;
 
 module.exports = reflector;
