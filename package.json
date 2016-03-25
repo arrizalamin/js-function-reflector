@@ -4,7 +4,7 @@
   "description": "Function Reflection in Javascript With Support for ES5 and ES6 Syntax",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/*.js",
+    "test": "mocha --harmony --harmony_default_parameters test/*.js",
     "test:babel": "mocha --compilers js:babel-register test/babel/*.js"
   },
   "repository": {
