@@ -1,7 +1,7 @@
 {
   "name": "js-function-reflector",
-  "version": "1.1.0",
-  "description": "Function Reflection in Javascript With Support for ES5 and ES6 Syntax",
+  "version": "1.2.0",
+  "description": "Function Reflection in Javascript With Support for ES6 Syntax and Babel Transpiled Code",
   "main": "index.js",
   "scripts": {
     "test": "mocha --harmony --harmony_default_parameters test/*.js",

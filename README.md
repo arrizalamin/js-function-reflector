@@ -10,43 +10,33 @@ npm install js-function-reflector
 
 ## Usage
 ```javascript
-var reflector = require('js-function-reflector');
+var functionReflector = require('js-function-reflector');
+// If you are using babel transpiler
+functionReflector = reflector.compiler('babel-preset-es2015');
 ```
 
 ## Example
 ```javascript
-function a() {};
+function a(foo, bar) {};
 console.log(functionReflector(a));
-// { name: 'a', args: [], body: '' }
+// { name: 'a', args: [foo, bar], body: '' }
 
-var b = function() {};
+const b = (foo, bar = true, baz = 'string', qux = 3, ...quux) => {};
 console.log(functionReflector(b));
-// { name: 'anonymous', args: [], body: '' }
-
-var c = function(foo, bar) {};
-console.log(functionReflector(c));
-// { name: 'anonymous', args: ['foo', 'bar'], body: '' }
-
-const d = (foo, bar = true, baz = 'string', qux = 3) => {};
-console.log(functionReflector(d));
-// { name: 'anonymous', args: ['foo', ['bar', true], ['baz', 'string'], ['qux', 3]], body: '' }
+// { name: 'anonymous', args: ['foo', ['bar', true], ['baz', 'string'], ['qux', 3], ['quux', 'spread operator']], body: '' }
 
 const someVar = 5;
-const e = (foo, bar = someVar) => {};
-console.log(functionReflector(e));
+const c = (foo, bar = someVar) => {};
+console.log(functionReflector(c));
 // { name: 'anonymous', args: ['foo', ['bar', "var('someVar')"]], body: '' }
 
-const f = (foo, ...bar) => {}
-console.log(functionReflector(f));
-// { name: 'anonymous', args: ['foo', ['bar', 'spread operator']], body: '' }
-
-const g = (foo) => {
+const d = (foo) => {
 	return foo
 }
-console.log(functionReflector(g));
+console.log(functionReflector(d));
 // { name: 'anonymous', args: ['foo'], body: 'return foo' }
 
-const h = foo => 'bar'
-console.log(functionReflector(h));
+const e = foo => 'bar'
+console.log(functionReflector(e));
 // { name: 'anonymous', args: ['foo'], body: "return 'bar'" }
 ```
