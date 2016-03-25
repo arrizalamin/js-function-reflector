@@ -1,5 +1,5 @@
 # js-function-reflector
-Function Reflection in Javascript With Support for ES5 and ES6 Syntax
+Function Reflection in Javascript With Support for ES6 Syntax and Babel Transpiled Code
 
 [![Build Status](https://travis-ci.org/arrizalamin/js-function-reflector.svg?branch=master)](https://travis-ci.org/arrizalamin/js-function-reflector)
 
