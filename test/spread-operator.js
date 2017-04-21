@@ -15,7 +15,7 @@ describe('Spread Operator', () => {
 
   it('should return array of arguments', () => {
     const actual = functionReflector(func).args
-    const expected = ['a', ['b', true], ['c', 'spread operator']]
+    const expected = ['a', ['b', true], '...c']
 
     expect(actual).toEqual(expected)
   })

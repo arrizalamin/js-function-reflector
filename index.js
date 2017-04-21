@@ -1,5 +1,5 @@
 var babelReflector = require('./babel-preset-es2015-reflector');
-var getNameAndArguments = require('./get-name-and-arguments');
+var parseHeader = require('./header_parser');
 var compilers = require('./compilers');
 
 var functionHeadRegex = /^(?:function\s*)?(?:(\w+)\s*)?(?:\(?)\s*([^\)]*)(?:\)?)/;
@@ -31,9 +31,9 @@ function reflector(fn) {
     var args = [matches[0]];
     var name = 'anonymous';
   } else {
-    var nameAndArgs = getNameAndArguments(src, functionHeadRegex);
-    var name = nameAndArgs.name;
-    var args = nameAndArgs.args;
+    var header = parseHeader(src, functionHeadRegex);
+    var name = header.name;
+    var args = header.args;
   }
 
   body = (inlineFunction) ? 'return ' + body : body.slice(body.indexOf('{') + 1, -1).trim()
