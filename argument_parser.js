@@ -79,7 +79,7 @@ Parser.prototype.pushBuffer = function() {
     this.parsed.push(this.buffer)
   } else if (this.state === 'val') {
     var variable = this.parsed.pop()
-    var defaultParam = eval(this.buffer)
+    var defaultParam = eval('(' + this.buffer + ')')
     this.parsed.push([variable, defaultParam])
   }
   this.buffer = ''
