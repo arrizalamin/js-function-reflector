@@ -1,6 +1,6 @@
 {
   "name": "js-function-reflector",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Function Reflection in Javascript With Support for ES6 Syntax and Babel Transpiled Code",
   "main": "index.js",
   "scripts": {
