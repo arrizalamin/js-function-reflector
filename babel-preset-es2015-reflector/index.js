@@ -1,15 +1,12 @@
 var parseHeader = require('./header_parser');
 
-var functionHeadRegex = /^function\s*(?:(\w+)\s*)?\(\s*([^\)]*)\)/m;
-var defaultParamsRegex = /var (\w+) = arguments.length <= (\d+) \|\| arguments\[(?:\2)\] === undefined \? (.+) : arguments\[(?:\2)\]/gm;
+var defaultParamsRegex = /var (\w+) = arguments.length > (\d+) && arguments\[(?:\2)\] !== undefined \? arguments\[(?:\2)\] : (.+);$/gm;
 var paramRegex = /var (\w+) = arguments\[(\d+)\]/gm;
 var spreadRegex = /(\w+)\[_key - (\d+)\] = arguments\[_key\];/gm;
 
 module.exports = function(fn) {
   var src = fn.toString();
-
-  var header = parseHeader(src, functionHeadRegex);
-
+  var header = parseHeader(src);
   var args = header.args;
 
   var param;
@@ -18,7 +15,7 @@ module.exports = function(fn) {
     var index = param[2];
     var value = param[3];
     try {
-      value = eval(value);
+      value = eval('(' + value + ')');
     } catch(e) {
       value = 'var(' + value + ')';
     }
