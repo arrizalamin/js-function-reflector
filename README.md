@@ -23,12 +23,10 @@ console.log(functionReflector(a));
 
 const b = (foo, bar = true, baz = 'string', qux = 3, ...quux) => {};
 console.log(functionReflector(b));
-// { name: 'anonymous', args: ['foo', ['bar', true], ['baz', 'string'], ['qux', 3], ['quux', 'spread operator']], body: '' }
+// { name: 'anonymous', args: ['foo', ['bar', true], ['baz', 'string'], ['qux', 3], '...quux'], body: '' }
 
-const someVar = 5;
-const c = (foo, bar = someVar) => {};
-console.log(functionReflector(c));
-// { name: 'anonymous', args: ['foo', ['bar', "var('someVar')"]], body: '' }
+const b = (foo = [1, 2], bar = {a: 1, b : ['s', 't', 'r']}) => {};
+// { name: 'anonymous', args: [['foo', [1, 2]], ['bar', {a: 1, b : ['s', 't', 'r']}]], body: '' }
 
 const d = (foo) => {
 	return foo
