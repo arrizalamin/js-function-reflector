@@ -36,14 +36,15 @@ Parser.prototype.parse = function(str) {
       if (this.lastStrOpening !== null) {
         if (this.lastStrOpening === ch) {
           this.lastStrOpening = null
-
-          var lastElement = i === str.length - 1
-          if(lastElement) {
-            this.buffer += ch
-            this.pushBuffer()
-          }
         }
+
         this.buffer += ch
+
+        var isLastElement = i === str.length - 1
+        if(isLastElement) {
+          this.pushBuffer()
+        }
+
         continue
       }
       
