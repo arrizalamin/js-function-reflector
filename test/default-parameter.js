@@ -19,4 +19,20 @@ describe('Default Parameter', () => {
 
     expect(actual).toEqual(expected)
   })
+
+  it('should parse single argument', () => {
+    const singleParameterFunc = x => {}
+    const actual = functionReflector(singleParameterFunc).args
+    const expected = 'x'
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should parse single argument with parenthesis', () => {
+    const singleParameterFunc = (x = 'a') => {}
+    const actual = functionReflector(singleParameterFunc).args
+    const expected = [['x', 'a']]
+
+    expect(actual).toEqual(expected)
+  })
 })
