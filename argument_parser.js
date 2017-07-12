@@ -10,6 +10,8 @@ var Parser = function() {
   
   this.parsed = []
   this.buffer = ''
+  this.destructuringType = null
+  this.destructuringKeys = []
 }
 
 Parser.prototype.parse = function(str) {
@@ -20,6 +22,16 @@ Parser.prototype.parse = function(str) {
       if (ch === '=') {
         this.pushBuffer()
         this.state = 'val'
+        continue
+      }
+      if (ch === '{') {
+        this.state = 'destructuring'
+        this.destructuringType = 'object'
+        continue
+      }
+      if (ch === '[') {
+        this.state = 'destructuring'
+        this.destructuringType = 'array'
         continue
       }
       if (ch === ',') {
@@ -67,6 +79,22 @@ Parser.prototype.parse = function(str) {
         this.state = 'var'
         continue
       }
+    } else if (this.state === 'destructuring') {
+      if (this.contains(this.whitespaces, ch)) continue
+      if (ch === ',') {
+        this.pushBuffer()
+        continue
+      }
+      if (this.contains(this.closing, ch)) {
+        this.pushBuffer()
+        this.parsed.push({
+          destructuring: this.destructuringType,
+          keys: this.destructuringKeys,
+        })
+        this.state = 'var'
+        continue
+      }
+      this.buffer += ch
     }
   }
   return this.parsed
@@ -82,12 +110,16 @@ Parser.prototype.contains = function(arr, ch) {
 }
 
 Parser.prototype.pushBuffer = function() {
+  if (this.buffer === '') return
+
   if (this.state === 'var') {
     this.parsed.push(this.buffer)
   } else if (this.state === 'val') {
     var variable = this.parsed.pop()
     var defaultParam = eval('(' + this.buffer + ')')
     this.parsed.push([variable, defaultParam])
+  } else if (this.state === 'destructuring') {
+    this.destructuringKeys.push(this.buffer)
   }
   this.buffer = ''
 }
