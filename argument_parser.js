@@ -2,17 +2,18 @@ var Parser = function() {
   this.state = 'var' // var or val
   this.counter = 0
   this.lastStrOpening = null
-  
+
   this.whitespaces = [' ', '\t', '\n']
   this.opening = ['[', '{']
   this.closing = [']', '}']
   this.strOpening = ["'", '"', '`']
-  
+
   this.parsed = []
   this.buffer = ''
 }
 
-Parser.prototype.parse = function(str) {
+Parser.prototype.parse = function(str, scope) {
+  Object.assign(this, scope)
   for (var i = 0; i < str.length; i++) {
     var ch = str.charAt(i)
     if (this.state === 'var') {
@@ -47,7 +48,7 @@ Parser.prototype.parse = function(str) {
 
         continue
       }
-      
+
       if (this.counter === 0 && this.contains(this.whitespaces, ch)) continue
       if (this.contains(this.opening, ch)) {
         this.counter++
@@ -86,7 +87,15 @@ Parser.prototype.pushBuffer = function() {
     this.parsed.push(this.buffer)
   } else if (this.state === 'val') {
     var variable = this.parsed.pop()
-    var defaultParam = eval('(' + this.buffer + ')')
+
+    var defaultParam
+
+    try{
+      defaultParam = eval('(' + this.buffer + ')')
+    } catch(e) {
+      defaultParam = eval('(this.' + this.buffer + ')')
+    }
+
     this.parsed.push([variable, defaultParam])
   }
   this.buffer = ''

@@ -35,4 +35,16 @@ describe('Default Parameter', () => {
 
     expect(actual).toEqual(expected)
   })
+
+  it('should parse argument value outside scope', function() {
+    const OUTSIDE = {
+      A: 1
+    }
+
+    const singleParameterFunc = function(x = OUTSIDE.A) {}
+    const actual = functionReflector.call({ OUTSIDE }, singleParameterFunc).args
+    const expected = [['x', 1]]
+
+    expect(actual).toEqual(expected)
+  })
 })

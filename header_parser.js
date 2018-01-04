@@ -7,7 +7,7 @@ module.exports = function(stringFunction, regex) {
     throw new Error('Invalid function');
   }
   var parser = new Parser();
-  var args = parser.parse(matches[2])
+  var args = parser.parse(matches[2], this)
 
   var name = matches[1] || 'anonymous';
 
