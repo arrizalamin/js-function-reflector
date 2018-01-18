@@ -31,7 +31,7 @@ function reflector(fn) {
     var args = [matches[0]];
     var name = 'anonymous';
   } else {
-    var header = parseHeader(src, functionHeadRegex);
+    var header = parseHeader.call(this, src, functionHeadRegex);
     var name = header.name;
     var args = header.args;
   }
