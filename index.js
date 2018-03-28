@@ -7,7 +7,7 @@ var oneArgumentFunctionRegex = /^\w+/;
 
 function reflector(fn) {
   var src;
-  var body = src = fn.toString();
+  var body = src = Function.prototype.toString.call(fn);
   var arrowIndex = src.lastIndexOf('=>');
   var arrowFunction = arrowIndex > -1;
   var inlineFunction = false;
