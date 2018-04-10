@@ -14,7 +14,27 @@ describe('Default Parameter', () => {
 
   it('should return array of parameters', () => {
     const actual = functionReflector(fn).params
-    const expected = ['a', ['b', true], ['c', 'string'], ['d', 5]]
+    const expected = [
+      {
+        type: 'SIMPLE',
+        name: 'a',
+      },
+      {
+        type: 'DEFAULT',
+        name: 'b',
+        value: true,
+      },
+      {
+        type: 'DEFAULT',
+        name: 'c',
+        value: 'string',
+      },
+      {
+        type: 'DEFAULT',
+        name: 'd',
+        value: 5,
+      },
+    ]
 
     expect(actual).to.eql(expected)
   })
@@ -22,7 +42,13 @@ describe('Default Parameter', () => {
   it('should parse single parameter with parenthesis', () => {
     const singleParamFn = (x = 'a') => {}
     const actual = functionReflector(singleParamFn).params
-    const expected = [['x', 'a']]
+    const expected = [
+      {
+        type: 'DEFAULT',
+        name: 'x',
+        value: 'a',
+      },
+    ]
 
     expect(actual).to.eql(expected)
   })
@@ -34,7 +60,11 @@ describe('Default Parameter', () => {
 
     const singleParamFn = function(x = OUTSIDE.A) {}
     const actual = functionReflector.call({ OUTSIDE }, singleParamFn).params
-    const expected = [['x', 1]]
+    const expected = [{
+      type: 'DEFAULT',
+      name: 'x',
+      value: 1,
+    }]
 
     expect(actual).to.eql(expected)
   })

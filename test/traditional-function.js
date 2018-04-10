@@ -21,7 +21,16 @@ describe('Traditional Function', () => {
 
   it('should return array of parameters', () => {
     const actual = functionReflector(fn).params
-    const expected = ['a', 'b']
+    const expected = [
+      {
+        type: 'SIMPLE',
+        name: 'a',
+      },
+      {
+        type: 'SIMPLE',
+        name: 'b',
+      },
+    ]
 
     expect(actual).to.eql(expected)
   })

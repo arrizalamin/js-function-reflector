@@ -14,7 +14,21 @@ describe('Rest Parameter', () => {
 
   it('should return array of parameters', () => {
     const actual = functionReflector(fn).params
-    const expected = ['a', ['b', true], '...c']
+    const expected = [
+      {
+        type: 'SIMPLE',
+        name: 'a',
+      },
+      {
+        type: 'DEFAULT',
+        name: 'b',
+        value: true,
+      },
+      {
+        type: 'REST',
+        name: 'c',
+      },
+    ]
 
     expect(actual).to.eql(expected)
   })

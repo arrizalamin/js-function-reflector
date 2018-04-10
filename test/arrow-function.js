@@ -14,7 +14,12 @@ describe('Arrow Function', () => {
 
   it('should return a string parameter', () => {
     const actual = functionReflector(a => {a}).params
-    const expected = ['a']
+    const expected = [
+      {
+        type: 'SIMPLE',
+        name: 'a',
+      }
+    ]
 
     expect(actual).to.eql(expected)
   })
@@ -35,7 +40,16 @@ describe('Arrow Function', () => {
 
   it('should return array of parameters', () => {
     const actual = functionReflector(fn).params
-    const expected = ['a', 'b']
+    const expected = [
+      {
+        type: 'SIMPLE',
+        name: 'a',
+      },
+      {
+        type: 'SIMPLE',
+        name: 'b',
+      },
+    ]
 
     expect(actual).to.eql(expected)
   })

@@ -41,7 +41,17 @@ Parser.prototype.parse = function(str, scope) {
       }
       this.buffer += ch
       if (i === str.length - 1) {
-        this.parsed.push(this.buffer)
+        if (this.buffer.startsWith('...')) {
+          this.parsed.push({
+            type: 'REST',
+            name: this.buffer.slice(3),
+          })
+        } else {
+          this.parsed.push({
+            type: 'SIMPLE',
+            name: this.buffer,
+          })
+        }
         this.buffer = ''
       }
     } else if (this.state === 'val') {
@@ -89,7 +99,8 @@ Parser.prototype.parse = function(str, scope) {
       if (this.contains(this.closing, ch)) {
         this.pushBuffer()
         this.parsed.push({
-          destructuring: this.destructuringType,
+          type: 'DESTRUCTURING',
+          destructuring_type: this.destructuringType,
           keys: this.destructuringKeys,
         })
         this.state = 'var'
@@ -114,7 +125,17 @@ Parser.prototype.pushBuffer = function() {
   if (this.buffer === '') return
 
   if (this.state === 'var') {
-    this.parsed.push(this.buffer)
+    if (this.buffer.startsWith('...')) {
+      this.parsed.push({
+        type: 'REST',
+        name: this.buffer.slice(3),
+      })
+    } else {
+      this.parsed.push({
+        type: 'SIMPLE',
+        name: this.buffer,
+      })
+    }
   } else if (this.state === 'val') {
     var variable = this.parsed.pop()
 
@@ -126,9 +147,23 @@ Parser.prototype.pushBuffer = function() {
       defaultParam = eval('(this.' + this.buffer + ')')
     }
 
-    this.parsed.push([variable, defaultParam])
+    this.parsed.push({
+      type: 'DEFAULT',
+      name: variable.name,
+      value: defaultParam,
+    })
   } else if (this.state === 'destructuring') {
-    this.destructuringKeys.push(this.buffer)
+    if (this.buffer.startsWith('...')) {
+      this.destructuringKeys.push({
+        type: 'REST',
+        name: this.buffer.slice(3)
+      })
+    } else {
+      this.destructuringKeys.push({
+        type: 'KEY',
+        name: this.buffer,
+      })
+    }
   }
   this.buffer = ''
 }
