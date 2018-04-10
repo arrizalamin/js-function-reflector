@@ -1,4 +1,4 @@
-const expect = require('expect')
+const expect = require('expect.js')
 const functionReflector = require('../index')
 
 describe('Default Parameter', () => {
@@ -8,16 +8,15 @@ describe('Default Parameter', () => {
 
   it('should return javascript object', () => {
     const actual = functionReflector(func)
-    const expected = 'object'
 
-    expect(actual).toBeAn(expected)
+    expect(actual).to.be.an('object')
   })
 
   it('should return array of arguments', () => {
     const actual = functionReflector(func).args
     const expected = ['a', ['b', true], ['c', 'string'], ['d', 5]]
 
-    expect(actual).toEqual(expected)
+    expect(actual).to.eql(expected)
   })
 
   it('should parse single argument with parenthesis', () => {
@@ -25,7 +24,7 @@ describe('Default Parameter', () => {
     const actual = functionReflector(singleParameterFunc).args
     const expected = [['x', 'a']]
 
-    expect(actual).toEqual(expected)
+    expect(actual).to.eql(expected)
   })
 
   it('should parse argument value outside scope', function() {
@@ -37,6 +36,6 @@ describe('Default Parameter', () => {
     const actual = functionReflector.call({ OUTSIDE }, singleParameterFunc).args
     const expected = [['x', 1]]
 
-    expect(actual).toEqual(expected)
+    expect(actual).to.eql(expected)
   })
 })
