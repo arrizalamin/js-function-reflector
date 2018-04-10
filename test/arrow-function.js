@@ -12,8 +12,8 @@ describe('Arrow Function', () => {
     expect(actual).to.be.an('object')
   })
 
-  it('should return a string argument', () => {
-    const actual = functionReflector(a => {a}).args
+  it('should return a string parameter', () => {
+    const actual = functionReflector(a => {a}).params
     const expected = ['a']
 
     expect(actual).to.eql(expected)
@@ -26,15 +26,15 @@ describe('Arrow Function', () => {
     expect(actual).to.eql(expected)
   })
 
-  it("should return empty array if function doesn't have argument", () => {
-    const actual = functionReflector(() => {}).args
+  it("should return empty array if function doesn't have parameter", () => {
+    const actual = functionReflector(() => {}).params
     const expected = []
 
     expect(actual).to.eql(expected)
   })
 
-  it('should return array of arguments', () => {
-    const actual = functionReflector(fn).args
+  it('should return array of parameters', () => {
+    const actual = functionReflector(fn).params
     const expected = ['a', 'b']
 
     expect(actual).to.eql(expected)

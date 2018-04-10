@@ -12,15 +12,15 @@ describe('Traditional Function', () => {
     expect(actual).to.be.an('object')
   })
 
-  it("should return empty array if it has empty argument", () => {
-    const actual = functionReflector(function(){ }).args
+  it("should return empty array if it has empty parameter", () => {
+    const actual = functionReflector(function(){ }).params
     const expected = []
 
     expect(actual).to.eql(expected)
   })
 
-  it('should return array of arguments', () => {
-    const actual = functionReflector(fn).args
+  it('should return array of parameters', () => {
+    const actual = functionReflector(fn).params
     const expected = ['a', 'b']
 
     expect(actual).to.eql(expected)

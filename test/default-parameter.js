@@ -12,28 +12,28 @@ describe('Default Parameter', () => {
     expect(actual).to.be.an('object')
   })
 
-  it('should return array of arguments', () => {
-    const actual = functionReflector(fn).args
+  it('should return array of parameters', () => {
+    const actual = functionReflector(fn).params
     const expected = ['a', ['b', true], ['c', 'string'], ['d', 5]]
 
     expect(actual).to.eql(expected)
   })
 
-  it('should parse single argument with parenthesis', () => {
-    const singleArgumentFn = (x = 'a') => {}
-    const actual = functionReflector(singleArgumentFn).args
+  it('should parse single parameter with parenthesis', () => {
+    const singleParamFn = (x = 'a') => {}
+    const actual = functionReflector(singleParamFn).params
     const expected = [['x', 'a']]
 
     expect(actual).to.eql(expected)
   })
 
-  it('should parse argument value outside scope', function() {
+  it('should parse parameter value outside scope', function() {
     const OUTSIDE = {
       A: 1
     }
 
-    const singleArgumentFn = function(x = OUTSIDE.A) {}
-    const actual = functionReflector.call({ OUTSIDE }, singleArgumentFn).args
+    const singleParamFn = function(x = OUTSIDE.A) {}
+    const actual = functionReflector.call({ OUTSIDE }, singleParamFn).params
     const expected = [['x', 1]]
 
     expect(actual).to.eql(expected)

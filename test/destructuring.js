@@ -9,15 +9,15 @@ describe('Destructuring Parameter', () => {
     return name
   }
 
-  it('should parse object destructuring argument', () => {
-    const actual = functionReflector(objDestructuringFn).args
+  it('should parse object destructuring parameter', () => {
+    const actual = functionReflector(objDestructuringFn).params
     const expected = ['a', ['b', true], {destructuring: 'object', keys: ['name', 'age']}, 'd']
 
     expect(actual).to.eql(expected)
   })
 
-  it('should parse array destructuring argument', () => {
-    const actual = functionReflector(arrDestructuringFn).args
+  it('should parse array destructuring parameter', () => {
+    const actual = functionReflector(arrDestructuringFn).params
     const expected = ['a', ['b', true], {destructuring: 'array', keys: ['name', 'age', '...rest']}]
 
     expect(actual).to.eql(expected)
