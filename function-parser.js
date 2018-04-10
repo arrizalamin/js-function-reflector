@@ -10,7 +10,7 @@ const parseTraditionalFunction = fnString => {
 
   let name;
   if (isAnonymous) {
-    name = 'anonymous';
+    name = null;
   } else {
     name = fnString.slice(0, argumentStartIndex);
   }
@@ -44,7 +44,7 @@ const parseArrowFunction = fnString => {
   }
 
   return {
-    name: 'anonymous',
+    name: null,
     argument,
     body,
   };

@@ -1,18 +1,18 @@
 const expect = require('expect.js')
 const functionReflector = require('../index')
 
-describe('Old Function', () => {
-  var func = function(a, b) {
+describe('Traditional Function', () => {
+  var fn = function(a, b) {
     return a;
   }
 
   it('should return javascript object', () => {
-    const actual = functionReflector(func)
+    const actual = functionReflector(fn)
 
     expect(actual).to.be.an('object')
   })
 
-  it("should return empty array if function doesn't have argument", () => {
+  it("should return empty array if it has empty argument", () => {
     const actual = functionReflector(function(){ }).args
     const expected = []
 
@@ -20,7 +20,7 @@ describe('Old Function', () => {
   })
 
   it('should return array of arguments', () => {
-    const actual = functionReflector(func).args
+    const actual = functionReflector(fn).args
     const expected = ['a', 'b']
 
     expect(actual).to.eql(expected)
@@ -34,15 +34,14 @@ describe('Old Function', () => {
     expect(actual).to.eql(expected)
   })
 
-  it('should return anonymous', () => {
-    const actual = functionReflector(func).name
-    const expected = 'anonymous'
+  it('should have null name', () => {
+    const actual = functionReflector(fn).name
 
-    expect(actual).to.eql(expected)
+    expect(actual).to.be(null)
   })
 
   it('should return function body in string', () => {
-    const actual = functionReflector(func).body
+    const actual = functionReflector(fn).body
     const expected = 'return a;'
 
     expect(actual).to.eql(expected)
