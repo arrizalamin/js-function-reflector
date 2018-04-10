@@ -8,11 +8,7 @@ function reflector(fn) {
   const paramParser = new ParameterParser();
   const params = paramParser.parse(parsed.argument, this);
 
-  return {
-    name: parsed.name,
-    params: params,
-    body: parsed.body,
-  };
+  return Object.assign(parsed, {params})
 };
 
 module.exports = reflector;

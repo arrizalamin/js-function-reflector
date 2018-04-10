@@ -17,6 +17,7 @@ const parseTraditionalFunction = fnString => {
   argument = fnString.slice(argumentStartIndex+1, -1);
 
   return {
+    type: 'TRADITIONAL',
     name,
     argument,
     body,
@@ -44,6 +45,7 @@ const parseArrowFunction = fnString => {
   }
 
   return {
+    type: 'ARROW',
     name: null,
     argument,
     body,
@@ -59,7 +61,6 @@ const parseFunction = fnString => {
   } else {
     parsed = parseArrowFunction(fnString);
   }
-  parsed['isArrowFunction'] = !isTraditionalFunction;
 
   return parsed;
 }

@@ -12,6 +12,12 @@ describe('Traditional Function', () => {
     expect(actual).to.be.an('object')
   })
 
+  it('should have traditional type', () => {
+    const actual = functionReflector(fn).type
+
+    expect(actual).to.be('TRADITIONAL')
+  })
+
   it("should return empty array if it has empty parameter", () => {
     const actual = functionReflector(function(){ }).params
     const expected = []

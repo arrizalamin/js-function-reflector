@@ -12,6 +12,12 @@ describe('Arrow Function', () => {
     expect(actual).to.be.an('object')
   })
 
+  it('should have arrow type', () => {
+    const actual = functionReflector(fn).type
+
+    expect(actual).to.be('ARROW')
+  })
+
   it('should return a string parameter', () => {
     const actual = functionReflector(a => {a}).params
     const expected = [
