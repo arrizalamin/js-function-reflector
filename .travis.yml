@@ -1,14 +1,12 @@
 language: node_js
 node_js:
-  - "4"
-  - "5"
-matrix:
-  include:
-    node_js: "5"
-    env: HARMONY=true
+  - "6"
+  - "7"
+  - "8"
+  - "9"
 script:
-  - npm run test:babel
-  - sh -c "if [ '$HARMONY' == 'true' ]; then npm run test; fi"
+  - npm run test
 branches:
   only:
     - master
+    - v2
