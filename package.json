@@ -4,7 +4,8 @@
   "description": "Function Reflection in Javascript With Support for ES6 Syntax and Babel Transpiled Code",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/*.js"
+    "test": "mocha test/*.js",
+    "test:skip-async": "mocha $(find test/ -type f -not -name 'async-*.js')"
   },
   "repository": {
     "type": "git",

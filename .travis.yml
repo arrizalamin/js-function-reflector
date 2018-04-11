@@ -1,11 +1,10 @@
 language: node_js
 node_js:
   - "6"
-  - "7"
   - "8"
   - "9"
 script:
-  - npm run test
+  - v=$(node -v);if [ ${v:1:1} = 6 ]; then npm run test:skip-async; else npm run test; fi
 branches:
   only:
     - master
