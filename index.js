@@ -1,5 +1,5 @@
 const parseFunction = require('./function-parser')
-const ParameterParser = require('./parameter_parser');
+const ParameterParser = require('./parameter-parser');
 
 function reflector(fn) {
   const fnString = Function.prototype.toString.call(fn);
