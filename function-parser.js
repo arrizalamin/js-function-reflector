@@ -1,5 +1,10 @@
 const parseTraditionalFunction = fnString => {
   fnString = fnString.slice('function'.length).trim();
+
+  isGenerator = fnString[0] === '*';
+  if (isGenerator) {
+    fnString = fnString.slice(1).trim()
+  }
     
   const bodyStartIndex = fnString.lastIndexOf('{');
   const body = fnString.slice(bodyStartIndex+1, -1).trim();
@@ -17,7 +22,7 @@ const parseTraditionalFunction = fnString => {
   argument = fnString.slice(argumentStartIndex+1, -1);
 
   return {
-    type: 'TRADITIONAL',
+    type: isGenerator ? 'GENERATOR' : 'TRADITIONAL',
     name,
     argument,
     body,
