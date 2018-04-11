@@ -53,6 +53,11 @@ const parseArrowFunction = fnString => {
 }
 
 const parseFunction = fnString => {
+  const isAsync = fnString.startsWith('async');
+  if (isAsync) {
+    fnString = fnString.slice('async'.length).trim()
+  }
+
   const isTraditionalFunction = fnString.startsWith('function');
     
   let parsed;
@@ -61,6 +66,7 @@ const parseFunction = fnString => {
   } else {
     parsed = parseArrowFunction(fnString);
   }
+  parsed['async'] = isAsync
 
   return parsed;
 }
