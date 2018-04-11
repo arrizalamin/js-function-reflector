@@ -21,6 +21,14 @@ const isOpening = isIn(['[', '{'])
 const isClosing = isIn([']', '}'])
 const isStrWrap = isIn(["'", '"', '`'])
 
+function betterEval(obj, scope = null){
+  const fn = new Function('"use strict";return (' + obj + ')')
+  if (scope != null) {
+    return fn.call(scope)
+  }
+  return fn()
+}
+
 class ParameterParser {
   constructor() {
     this.state = state.VARIABLE
@@ -33,7 +41,7 @@ class ParameterParser {
   }
 
   parse(fn, scope) {
-    Object.assign(this, scope)
+    this.scope = scope
     let i = -1
     while (i < fn.length) {
       i += 1
@@ -154,9 +162,9 @@ class ParameterParser {
 
         let defaultParam
         try{
-          defaultParam = eval('(' + this.buffer + ')')
+          defaultParam = betterEval(this.buffer, this.scope)
         } catch(e) {
-          defaultParam = eval('(this.' + this.buffer + ')')
+          defaultParam = betterEval('this.' + this.buffer, this.scope)
         }
 
         if (this.destructuringType == null) {
