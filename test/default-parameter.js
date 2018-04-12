@@ -59,7 +59,7 @@ describe('Default Parameter', () => {
     }
 
     const singleParamFn = function(x = OUTSIDE.A) {}
-    const actual = functionReflector.call({ OUTSIDE }, singleParamFn).params
+    const actual = functionReflector(singleParamFn, { OUTSIDE }).params
     const expected = [{
       type: 'DEFAULT',
       name: 'x',

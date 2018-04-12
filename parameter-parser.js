@@ -21,16 +21,23 @@ const isOpening = isIn(['[', '{'])
 const isClosing = isIn([']', '}'])
 const isStrWrap = isIn(["'", '"', '`'])
 
-function betterEval(obj, scope = null){
-  const fn = new Function('"use strict";return (' + obj + ')')
-  if (scope != null) {
-    return fn.call(scope)
+function betterEval(obj, scope = {}){
+  try {
+    return new Function(`
+      "use strict";
+      return (${obj});
+    `).call(scope)
+  } catch (e) {
+    return new Function(`
+      "use strict";
+      return (this.${obj});
+    `).call(scope)
   }
-  return fn()
 }
 
 class ParameterParser {
-  constructor() {
+  constructor(scope = null) {
+    this.scope = scope
     this.state = state.VARIABLE
     this.counter = 0
 
@@ -40,8 +47,7 @@ class ParameterParser {
     this.destructuringKeys = []
   }
 
-  parse(fn, scope) {
-    this.scope = scope
+  parse(fn) {
     let i = -1
     while (i < fn.length) {
       i += 1
@@ -160,12 +166,7 @@ class ParameterParser {
           topStack = this.destructuringKeys.pop()
         }
 
-        let defaultParam
-        try{
-          defaultParam = betterEval(this.buffer, this.scope)
-        } catch(e) {
-          defaultParam = betterEval('this.' + this.buffer, this.scope)
-        }
+        const defaultParam = betterEval(this.buffer, this.scope)
 
         if (this.destructuringType == null) {
           this.parsed.push({
