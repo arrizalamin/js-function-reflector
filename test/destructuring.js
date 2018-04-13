@@ -224,7 +224,7 @@ describe('Destructuring Parameter', () => {
           type: 'object',
           keys: [
             {
-              type: 'KEY_WITH_DESTRUCTURING',
+              type: 'DESTRUCTURING',
               name: 'ids',
               value: {
                 type: 'array',
@@ -241,7 +241,7 @@ describe('Destructuring Parameter', () => {
               },
             },
             {
-              type: 'KEY_WITH_DESTRUCTURING',
+              type: 'DESTRUCTURING',
               name: 'names',
               value: {
                 type: 'object',

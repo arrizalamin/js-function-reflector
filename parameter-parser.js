@@ -231,7 +231,7 @@ class ParameterParser {
       if (topType == 'object') {
         let lastStack = topStack[topStack.length - 1]
         topStack[topStack.length - 1] = {
-          type: 'KEY_WITH_DESTRUCTURING',
+          type: 'DESTRUCTURING',
           name: lastStack.name,
           value: parsed,
         }
