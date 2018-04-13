@@ -23,17 +23,19 @@ describe('Destructuring Parameter', () => {
       },
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'object',
-        keys: [
-          {
-            type: 'KEY',
-            name: 'name',
-          },
-          {
-            type: 'KEY',
-            name: 'age'
-          },
-        ]
+        value: {
+          type: 'object',
+          keys: [
+            {
+              type: 'KEY',
+              name: 'name',
+            },
+            {
+              type: 'KEY',
+              name: 'age'
+            },
+          ],
+        },
       },
       {
         type: 'SIMPLE',
@@ -58,21 +60,23 @@ describe('Destructuring Parameter', () => {
       },
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'array',
-        keys: [
-          {
-            type: 'KEY',
-            name: 'name',
-          },
-          {
-            type: 'KEY',
-            name: 'age'
-          },
-          {
-            type: 'REST',
-            name: 'rest',
-          }
-        ]
+        value: {
+          type: 'array',
+          keys: [
+            {
+              type: 'KEY',
+              name: 'name',
+            },
+            {
+              type: 'KEY',
+              name: 'age'
+            },
+            {
+              type: 'REST',
+              name: 'rest',
+            },
+          ],
+        },
       },
     ]
 
@@ -93,17 +97,19 @@ describe('Destructuring Parameter', () => {
       },
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'object',
-        keys: [
-          {
-            type: 'KEY',
-            name: 'name',
-          },
-          {
-            type: 'KEY',
-            name: 'age'
-          },
-        ]
+        value: {
+          type: 'object',
+          keys: [
+            {
+              type: 'KEY',
+              name: 'name',
+            },
+            {
+              type: 'KEY',
+              name: 'age'
+            },
+          ],
+        },
       },
       {
         type: 'SIMPLE',
@@ -119,23 +125,25 @@ describe('Destructuring Parameter', () => {
     const expected = [
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'array',
-        keys: [
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'a',
-            value: true,
-          },
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'b',
-            value: 'foo',
-          },
-          {
-            type: 'KEY',
-            name: 'c',
-          }
-        ]
+        value: {
+          type: 'array',
+          keys: [
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'a',
+              value: true,
+            },
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'b',
+              value: 'foo',
+            },
+            {
+              type: 'KEY',
+              name: 'c',
+            },
+          ],
+        },
       },
     ]
 
@@ -148,24 +156,26 @@ describe('Destructuring Parameter', () => {
     const expected = [
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'array',
-        keys: [
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'a',
-            value: [1,2],
-          },
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'b',
-            value: {name: 'ABC', age: 20},
-          },
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'c',
-            value: [{country: 'Indonesia', city: 'Jakarta'}],
-          }
-        ]
+        value: {
+          type: 'array',
+          keys: [
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'a',
+              value: [1,2],
+            },
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'b',
+              value: {name: 'ABC', age: 20},
+            },
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'c',
+              value: [{country: 'Indonesia', city: 'Jakarta'}],
+            }
+          ],
+        },
       },
     ]
 
@@ -178,24 +188,26 @@ describe('Destructuring Parameter', () => {
     const expected = [
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'object',
-        keys: [
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'a',
-            value: [1,2],
-          },
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'b',
-            value: {name: 'ABC', age: 20},
-          },
-          {
-            type: 'KEY_WITH_DEFAULT',
-            name: 'c',
-            value: [{country: 'Indonesia', city: 'Jakarta'}],
-          }
-        ]
+        value: {
+          type: 'object',
+          keys: [
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'a',
+              value: [1,2],
+            },
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'b',
+              value: {name: 'ABC', age: 20},
+            },
+            {
+              type: 'KEY_WITH_DEFAULT',
+              name: 'c',
+              value: [{country: 'Indonesia', city: 'Jakarta'}],
+            },
+          ],
+        },
       },
     ]
 
@@ -208,40 +220,42 @@ describe('Destructuring Parameter', () => {
     const expected = [
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'object',
-        keys: [
-          {
-            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
-            name: 'ids',
-            value: {
-              destructuring_type: 'array',
-              keys: [
-                {
-                  type: 'KEY',
-                  name: 'firstId',
-                },
-                {
-                  type: 'REST',
-                  name: 'restIds',
-                },
-              ]
+        value: {
+          type: 'object',
+          keys: [
+            {
+              type: 'KEY_WITH_DESTRUCTURING',
+              name: 'ids',
+              value: {
+                type: 'array',
+                keys: [
+                  {
+                    type: 'KEY',
+                    name: 'firstId',
+                  },
+                  {
+                    type: 'REST',
+                    name: 'restIds',
+                  },
+                ],
+              },
             },
-          },
-          {
-            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
-            name: 'names',
-            value: {
-              destructuring_type: 'object',
-              keys: [
-                {
-                  type: 'KEY',
-                  name: 'lastNames',
-                },
-              ]
-            }
-          }
-        ]
-      }
+            {
+              type: 'KEY_WITH_DESTRUCTURING',
+              name: 'names',
+              value: {
+                type: 'object',
+                keys: [
+                  {
+                    type: 'KEY',
+                    name: 'lastNames',
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
     ]
 
     expect(actual).to.eql(expected)
@@ -253,38 +267,40 @@ describe('Destructuring Parameter', () => {
     const expected = [
       {
         type: 'DESTRUCTURING',
-        destructuring_type: 'array',
-        keys: [
-          {
-            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
-            value: {
-              destructuring_type: 'array',
-              keys: [
-                {
-                  type: 'KEY',
-                  name: 'firstId',
-                },
-                {
-                  type: 'REST',
-                  name: 'restIds',
-                },
-              ]
+        value: {
+          type: 'array',
+          keys: [
+            {
+              type: 'DESTRUCTURING',
+              value: {
+                type: 'array',
+                keys: [
+                  {
+                    type: 'KEY',
+                    name: 'firstId',
+                  },
+                  {
+                    type: 'REST',
+                    name: 'restIds',
+                  },
+                ],
+              },
             },
-          },
-          {
-            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
-            value: {
-              destructuring_type: 'object',
-              keys: [
-                {
-                  type: 'KEY',
-                  name: 'lastNames',
-                },
-              ]
-            }
-          }
-        ]
-      }
+            {
+              type: 'DESTRUCTURING',
+              value: {
+                type: 'object',
+                keys: [
+                  {
+                    type: 'KEY',
+                    name: 'lastNames',
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
     ]
 
     expect(actual).to.eql(expected)

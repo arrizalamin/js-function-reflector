@@ -223,7 +223,7 @@ class ParameterParser {
 
   pushDestructuringKeys() {
     const parsed = {
-      destructuring_type: this.destructuringType,
+      type: this.destructuringType,
       keys: this.destructuringKeys,
     }
     if (this.destructuringStack.length > 0) {
@@ -231,13 +231,13 @@ class ParameterParser {
       if (topType == 'object') {
         let lastStack = topStack[topStack.length - 1]
         topStack[topStack.length - 1] = {
-          type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+          type: 'KEY_WITH_DESTRUCTURING',
           name: lastStack.name,
           value: parsed,
         }
       } else {
         topStack.push({
-          type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+          type: 'DESTRUCTURING',
           value: parsed,
         })
       }
@@ -245,9 +245,10 @@ class ParameterParser {
       this.destructuringKeys = topStack
       this.destructuringType = topType
     } else {
-      this.parsed.push(Object.assign(parsed, {
+      this.parsed.push({
         type: 'DESTRUCTURING',
-      }))
+        value: parsed,
+      })
       this.destructuringKeys = []
       this.destructuringType = null
     }
