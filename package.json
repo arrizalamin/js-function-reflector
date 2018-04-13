@@ -1,11 +1,11 @@
 {
   "name": "js-function-reflector",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Function Reflection in Javascript With Support for ES6 Syntax and Babel Transpiled Code",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js",
-    "test:babel": "mocha --compilers js:babel-register test/babel/*.js"
+    "test:skip-async": "mocha $(find test/ -type f -not -name 'async-*.js')"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.24.1",
-    "expect": "^1.15.2",
-    "mocha": "^2.4.5"
+    "expect.js": "^0.3.1",
+    "mocha": "^5.0.5"
   }
 }
