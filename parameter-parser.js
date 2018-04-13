@@ -77,7 +77,7 @@ class ParameterParser {
                 continue
               }
           }
-          if (isClosing(token) && this.counter == 0 && this.destructuringType != null) {
+          if (isClosing(token) && this.destructuringType != null) {
             this.pushBuffer()
             this.pushDestructuringKeys()
             continue
@@ -96,7 +96,9 @@ class ParameterParser {
           if (isStrWrap(token)) {
             const closingIdx = fn.indexOf(token, i+1)
             this.buffer += fn.slice(i, closingIdx + 1)
-            this.pushBuffer()
+            if (this.destructuringType == null) {
+              this.pushBuffer()
+            }
             i = closingIdx
             continue
           }

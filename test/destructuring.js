@@ -141,4 +141,64 @@ describe('Destructuring Parameter', () => {
 
     expect(actual).to.eql(expected)
   })
+
+  it('should parse array destructuring parameter with deep default value', () => {
+    const actual = functionReflector(([a = [1,2], b = {name: 'ABC', age: 20},
+                                      c = [{country: 'Indonesia', city: 'Jakarta'}]]) => {}).params
+    const expected = [
+      {
+        type: 'DESTRUCTURING',
+        destructuring_type: 'array',
+        keys: [
+          {
+            type: 'KEY_WITH_DEFAULT',
+            name: 'a',
+            value: [1,2],
+          },
+          {
+            type: 'KEY_WITH_DEFAULT',
+            name: 'b',
+            value: {name: 'ABC', age: 20},
+          },
+          {
+            type: 'KEY_WITH_DEFAULT',
+            name: 'c',
+            value: [{country: 'Indonesia', city: 'Jakarta'}],
+          }
+        ]
+      },
+    ]
+
+    expect(actual).to.eql(expected)
+  })
+
+  it('should parse object destructuring parameter with deep default value', () => {
+    const actual = functionReflector(({a = [1,2], b = {name: 'ABC', age: 20},
+                                      c = [{country: 'Indonesia', city: 'Jakarta'}]}) => {}).params
+    const expected = [
+      {
+        type: 'DESTRUCTURING',
+        destructuring_type: 'object',
+        keys: [
+          {
+            type: 'KEY_WITH_DEFAULT',
+            name: 'a',
+            value: [1,2],
+          },
+          {
+            type: 'KEY_WITH_DEFAULT',
+            name: 'b',
+            value: {name: 'ABC', age: 20},
+          },
+          {
+            type: 'KEY_WITH_DEFAULT',
+            name: 'c',
+            value: [{country: 'Indonesia', city: 'Jakarta'}],
+          }
+        ]
+      },
+    ]
+
+    expect(actual).to.eql(expected)
+  })
 })
