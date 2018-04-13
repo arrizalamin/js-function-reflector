@@ -10,21 +10,21 @@ const parseTraditionalFunction = fnString => {
   const body = fnString.slice(bodyStartIndex+1, -1).trim();
   fnString = fnString.slice(0, bodyStartIndex).trim();
 
-  const argumentStartIndex = fnString.indexOf('(');
-  const isAnonymous = argumentStartIndex == 0;
+  const parameterStartIdx = fnString.indexOf('(');
+  const isAnonymous = parameterStartIdx == 0;
 
   let name;
   if (isAnonymous) {
     name = null;
   } else {
-    name = fnString.slice(0, argumentStartIndex);
+    name = fnString.slice(0, parameterStartIdx);
   }
-  argument = fnString.slice(argumentStartIndex+1, -1);
+  parameterString = fnString.slice(parameterStartIdx+1, -1);
 
   return {
     type: isGenerator ? 'GENERATOR' : 'TRADITIONAL',
     name,
-    argument,
+    parameterString,
     body,
   };
 }
@@ -40,19 +40,19 @@ const parseArrowFunction = fnString => {
     body = 'return ' + body;
   }
 
-  const argumentStr = fnString.slice(0, arrowIndex).trim();
+  const parameterWithParentheses = fnString.slice(0, arrowIndex).trim();
   const hasParentheses = fnString[0] == '(';
-  let argument;
+  let parameterString;
   if (hasParentheses) {
-    argument = argumentStr.slice(1,-1);
+    parameterString = parameterWithParentheses.slice(1,-1);
   } else {
-    argument = argumentStr;
+    parameterString = parameterWithParentheses;
   }
 
   return {
     type: 'ARROW',
     name: null,
-    argument,
+    parameterString,
     body,
   };
 }
