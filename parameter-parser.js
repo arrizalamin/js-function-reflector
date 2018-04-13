@@ -45,6 +45,7 @@ class ParameterParser {
     this.buffer = ''
     this.destructuringType = null
     this.destructuringKeys = []
+    this.destructuringStack = []
   }
 
   parse(fn) {
@@ -55,6 +56,23 @@ class ParameterParser {
       switch (this.state) {
         case state.VARIABLE:
           if (isWhitespace(token)) continue
+          if ((token == ':' && this.destructuringType == 'object')) {
+            this.pushBuffer()
+            this.destructuringStack.push([this.destructuringType, this.destructuringKeys])
+            this.destructuringKeys = []
+            continue
+          }
+          if (this.destructuringType == 'array' && (token == '[' || token == '{')) {
+            this.pushBuffer()
+            this.destructuringStack.push([this.destructuringType, this.destructuringKeys])
+            this.destructuringKeys = []
+            if (token == '[') {
+              this.destructuringType = 'array'
+            } else if (token == '{') {
+              this.destructuringType = 'object'
+            }
+            continue
+          }
           switch (token) {
             case '=':
               this.pushBuffer()
@@ -130,6 +148,7 @@ class ParameterParser {
           if (isClosing(token) && this.counter == 0 && this.destructuringType != null) {
             this.pushBuffer()
             this.pushDestructuringKeys()
+            this.state = state.VARIABLE
             continue
           }
           this.buffer += token
@@ -203,13 +222,35 @@ class ParameterParser {
   }
 
   pushDestructuringKeys() {
-    this.parsed.push({
-      type: 'DESTRUCTURING',
+    const parsed = {
       destructuring_type: this.destructuringType,
       keys: this.destructuringKeys,
-    })
-    this.destructuringKeys = []
-    this.destructuringType = null
+    }
+    if (this.destructuringStack.length > 0) {
+      let [topType, topStack] = this.destructuringStack.pop()
+      if (topType == 'object') {
+        let lastStack = topStack[topStack.length - 1]
+        topStack[topStack.length - 1] = {
+          type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+          name: lastStack.name,
+          value: parsed,
+        }
+      } else {
+        topStack.push({
+          type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+          value: parsed,
+        })
+      }
+
+      this.destructuringKeys = topStack
+      this.destructuringType = topType
+    } else {
+      this.parsed.push(Object.assign(parsed, {
+        type: 'DESTRUCTURING',
+      }))
+      this.destructuringKeys = []
+      this.destructuringType = null
+    }
   }
 }
 

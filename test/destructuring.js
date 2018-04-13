@@ -201,4 +201,92 @@ describe('Destructuring Parameter', () => {
 
     expect(actual).to.eql(expected)
   })
+
+  it('should parse deep object destructuring parameter', () => {
+    const deepDestructuringFn = ({ids: [firstId, ...restIds], names: {lastNames}}) => {}
+    const actual = functionReflector(deepDestructuringFn).params
+    const expected = [
+      {
+        type: 'DESTRUCTURING',
+        destructuring_type: 'object',
+        keys: [
+          {
+            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+            name: 'ids',
+            value: {
+              destructuring_type: 'array',
+              keys: [
+                {
+                  type: 'KEY',
+                  name: 'firstId',
+                },
+                {
+                  type: 'REST',
+                  name: 'restIds',
+                },
+              ]
+            },
+          },
+          {
+            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+            name: 'names',
+            value: {
+              destructuring_type: 'object',
+              keys: [
+                {
+                  type: 'KEY',
+                  name: 'lastNames',
+                },
+              ]
+            }
+          }
+        ]
+      }
+    ]
+
+    expect(actual).to.eql(expected)
+  })
+
+  it('should parse deep array destructuring parameter', () => {
+    const deepDestructuringFn = ([[firstId, ...restIds], {lastNames}]) => {}
+    const actual = functionReflector(deepDestructuringFn).params
+    const expected = [
+      {
+        type: 'DESTRUCTURING',
+        destructuring_type: 'array',
+        keys: [
+          {
+            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+            value: {
+              destructuring_type: 'array',
+              keys: [
+                {
+                  type: 'KEY',
+                  name: 'firstId',
+                },
+                {
+                  type: 'REST',
+                  name: 'restIds',
+                },
+              ]
+            },
+          },
+          {
+            type: 'KEY_WITH_DEEPER_DESTRUCTURING',
+            value: {
+              destructuring_type: 'object',
+              keys: [
+                {
+                  type: 'KEY',
+                  name: 'lastNames',
+                },
+              ]
+            }
+          }
+        ]
+      }
+    ]
+
+    expect(actual).to.eql(expected)
+  })
 })
