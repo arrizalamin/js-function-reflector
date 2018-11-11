@@ -1,7 +1,7 @@
 {
   "name": "js-function-reflector",
-  "version": "2.0.0",
-  "description": "Function Reflection in Javascript With Support for ES6 Syntax and Babel Transpiled Code",
+  "version": "2.0.2",
+  "description": "Function Reflection in Javascript With Support for ES2015+ Syntax",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js",
@@ -13,7 +13,9 @@
   },
   "keywords": [
     "function",
-    "reflection"
+    "reflection",
+    "parameter",
+    "parser"
   ],
   "author": "Arrizal Amin",
   "license": "MIT",

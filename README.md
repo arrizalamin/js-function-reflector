@@ -47,7 +47,7 @@ const output = functionReflector(add);
 /* output = {
   type: "TRADITIONAL",
   name: "add",
-  parameterString: "a, b",
+  _rawParameter: "a, b",
   body: "return a + b;",
   async: false,
   params: [
@@ -73,7 +73,7 @@ let output = functionReflector(arrowFn);
 /* output = {
   type: "ARROW",
   name: null,
-  parameterString: "a, b",
+  _rawParameter: "a, b",
   body: "return a + b;",
   async: false,
   params: [
@@ -94,7 +94,7 @@ output = functionReflector(arrowWithoutParenthesisAndCurlyBrace);
 /* output = {
   type: "ARROW",
   name: null,
-  parameterString: "name",
+  _rawParameter: "name",
   body: "return 'hello ' + name",
   async: false,
   params: [
@@ -116,7 +116,7 @@ const output = functionReflector(sleep))
 /* output = {
   type: "TRADITIONAL",
   name: null,
-  parameterString: "time",
+  _rawParameter: "time",
   body: "return new Promise(resolve, setTimeout(resolve, time))",
   async: true,
   params: [
@@ -140,7 +140,7 @@ const output = functionReflector(generatorFn))
 /* output = {
   type: "GENERATOR",
   name: null,
-  parameterString: "list",
+  _rawParameter: "list",
   body: "for (var item of list) {\r\n    yield item\r\n  }",
   async: false,
   params: [

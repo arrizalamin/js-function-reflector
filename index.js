@@ -6,7 +6,7 @@ function reflector(fn, scope = {}) {
   const parsed = parseFunction(fnString);
 
   const paramParser = new ParameterParser(scope);
-  const params = paramParser.parse(parsed.parameterString);
+  const params = paramParser.parse(parsed._rawParameter);
 
   return Object.assign(parsed, {params})
 };

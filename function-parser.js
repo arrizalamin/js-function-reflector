@@ -1,7 +1,3 @@
-const getParameterBoundaryIndexes = fnString => {
-  return [parameterStartIdx, parameterEndIdx]
-}
-
 const parseTraditionalFunction = fnString => {
   fnString = fnString.slice('function'.length).trim()
 
@@ -26,7 +22,7 @@ const parseTraditionalFunction = fnString => {
     }
   }
   const isAnonymous = parameterStartIdx == 0
-  const parameterString = fnString.slice(parameterStartIdx + 1, parameterEndIdx)
+  const _rawParameter = fnString.slice(parameterStartIdx + 1, parameterEndIdx)
   
   const bodyStartIndex = fnString.indexOf('{', parameterEndIdx)
   const body = fnString.slice(bodyStartIndex + 1, fnString.length - 1).trim()
@@ -38,7 +34,7 @@ const parseTraditionalFunction = fnString => {
   return {
     type: isGenerator ? 'GENERATOR' : 'TRADITIONAL',
     name,
-    parameterString,
+    _rawParameter,
     body,
   }
 }
@@ -56,17 +52,17 @@ const parseArrowFunction = fnString => {
 
   const parameterWithParentheses = fnString.slice(0, arrowIndex).trim()
   const hasParentheses = fnString[0] == '('
-  let parameterString
+  let _rawParameter
   if (hasParentheses) {
-    parameterString = parameterWithParentheses.slice(1,-1)
+    _rawParameter = parameterWithParentheses.slice(1,-1)
   } else {
-    parameterString = parameterWithParentheses
+    _rawParameter = parameterWithParentheses
   }
 
   return {
     type: 'ARROW',
     name: null,
-    parameterString,
+    _rawParameter,
     body,
   }
 }
