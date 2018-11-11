@@ -16,7 +16,7 @@ if (!Array.prototype.includes) {
 }
 
 const isIn = tokens => token => tokens.includes(token)
-const isWhitespace = isIn([' ', '\t', '\n'])
+const isWhitespace = isIn([' ', '\t', '\n', '\r'])
 const isOpening = isIn(['[', '{'])
 const isClosing = isIn([']', '}'])
 const isStrWrap = isIn(["'", '"', '`'])
