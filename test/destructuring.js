@@ -305,4 +305,33 @@ describe('Destructuring Parameter', () => {
 
     expect(actual).to.eql(expected)
   })
+
+
+  it('should parse multiline destructuring parameter', () => {
+    const multilineFn = function ({
+      param1,
+      param2
+    }) {}
+    const actual = functionReflector(multilineFn).params
+    const expected = [
+      {
+        type: 'DESTRUCTURING',
+        value: {
+          type: 'object',
+          keys: [
+            {
+              type: 'KEY',
+              name: 'param1',
+            },
+            {
+              type: 'KEY',
+              name: 'param2',
+            },
+          ],
+        },
+      },
+    ]
+
+    expect(actual).to.eql(expected)
+  })
 })
